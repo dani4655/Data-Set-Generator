@@ -18,32 +18,14 @@ def generate_bubble(image_size):
 def generate_scratch(image_size):
     img = np.zeros((image_size, image_size), dtype=np.uint8)
 
-    # Start with a random point
-    start_point = (np.random.randint(10, image_size - 10), np.random.randint(10, image_size - 10))
+    # Randomly choose start and end points for the line
+    start_point = (np.random.randint(10, image_size - 20), np.random.randint(10, image_size - 20))
+    end_point = (np.random.randint(10, image_size - 20), np.random.randint(10, image_size - 20))
 
-    # Randomly determine the number of line segments
-    num_segments = np.random.randint(3, 8)
-
-    for _ in range(num_segments):
-        # Randomly determine the length and angle of each segment
-        length = np.random.randint(5, 20)
-        angle = np.random.uniform(0, 2 * np.pi)
-
-        # Calculate the endpoint of the segment
-        end_point = (
-            int(start_point[0] + length * np.cos(angle)),
-            int(start_point[1] + length * np.sin(angle))
-        )
-
-        # Draw the line segment
-        cv2.line(img, start_point, end_point, 255, 3)
-
-        # Update the start point for the next segment
-        start_point = end_point
+    # Draw the line
+    cv2.line(img, start_point, end_point, 255, 3)
 
     return img
-
-
 
 def generate_dirt_stain(image_size):
     img = np.zeros((image_size, image_size), dtype=np.uint8)
@@ -99,10 +81,9 @@ image_size = 64
 dataset, labels = generate_dataset(num_images, image_size)
 
 # Visualize a few examples
-fig, axes = plt.subplots(1, 5, figsize=(15, 3))
-for i in range(5):
+fig, axes = plt.subplots(1, 10, figsize=(15, 3))
+for i in range(10):
     axes[i].imshow(dataset[i], cmap='gray')
     axes[i].set_title(f"Label: {labels[i]}")
     axes[i].axis('off')
-    plt.savefig(f'image_{i}.png')
 plt.show()
