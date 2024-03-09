@@ -54,3 +54,7 @@ history = model.fit(train_images, train_labels, epochs=10, batch_size=32, valida
 test_loss, test_accuracy = model.evaluate(test_images, test_labels)
 print("Test Loss:", test_loss)
 print("Test Accuracy:", test_accuracy)
+
+# Save the trained model
+# model.save('a_trained_model.h5')
+model.save('b_trained_model.h5')
